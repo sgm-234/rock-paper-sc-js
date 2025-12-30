@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+    
+<head>
+    <meta charset="UTF-8">
+    <title>Rock Paper Scissors</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+<script>
+    
+let humanscore = 0;
+let compscore = 0;
+
+function getComputerChoice(){
+    let comp = Math.random();
+
+    if (comp<0.33){
+        return "rock";
+    }
+    else if (comp >=0.33 && comp <0.66){
+        return "paper";
+    }
+    else{
+        return "scissors";
+    }
+
+}
+
+function getHumanChoice(){
+    let x =  prompt("Enter rock,paper or scissors");
+    return x.toLowerCase();
+}
+
+
+function playRound(humanSelection, computerSelection){
+    if (humanSelection === computerSelection){
+        console.log("ITS A TIE");
+    }
+    else if((humanSelection==="rock" && computerSelection==="scissors")||
+    (humanSelection==="paper" && computerSelection==="rock")||
+    (humanSelection==="scissors" && computerSelection==="paper")){
+    humanscore++;        
+        console.log("YOU WIN boiiiiii (just dis round tho :p)")
+    }
+    else {
+        compscore++;
+        console.log("Computer wins. YOU LOSE D:");
+    }
+}
+
+for(let i=0;i<5;i++){
+    let y = getHumanChoice();
+    let z = getComputerChoice();
+    playRound(y,z);
+}
+
+console.log("Your score: " + humanscore);
+console.log("Computer's score: " + compscore);
+if(humanscore===compscore){
+    alert("YALL TIED :|");
+}
+else if(humanscore>compscore){
+    alert("YOU WIN :D");
+}
+else{
+    alert("YOU LOSE D:");
+}
+
+</script>
+
+    </body>
+
+
+
+</html>
+
