@@ -9,6 +9,15 @@
 
 <body>
 
+<button id="rock">Rock</button>
+<button id="paper">Paper</button>
+<button id="scissors">Scissors</button>
+
+<div id="results"></div>
+<div id="score"></div>
+
+
+
 <script>
     
 let humanscore = 0;
@@ -35,39 +44,48 @@ function getHumanChoice(){
 }
 
 
-function playRound(humanSelection, computerSelection){
-    if (humanSelection === computerSelection){
-        console.log("ITS A TIE");
-    }
-    else if((humanSelection==="rock" && computerSelection==="scissors")||
-    (humanSelection==="paper" && computerSelection==="rock")||
-    (humanSelection==="scissors" && computerSelection==="paper")){
-    humanscore++;        
-        console.log("YOU WIN boiiiiii (just dis round tho :p)")
-    }
+function playRound(humanSelection, computerSelection) {
+    if (humanSelection === computerSelection) {
+        return "It's a tie!";
+    } 
+    else if (
+        (humanSelection === "rock" && computerSelection === "scissors") ||
+        (humanSelection === "paper" && computerSelection === "rock") ||
+        (humanSelection === "scissors" && computerSelection === "paper")
+    ) {
+        humanscore++;
+        return "You win this round!";
+    } 
     else {
         compscore++;
-        console.log("Computer wins. YOU LOSE D:");
+        return "Computer wins this round!";
     }
 }
 
-for(let i=0;i<5;i++){
-    let y = getHumanChoice();
-    let z = getComputerChoice();
-    playRound(y,z);
-}
+const buttons = document.querySelectorAll("button");
+const resultsDiv = document.getElementById("results");
+const scoreDiv = document.getElementById("score");
 
-console.log("Your score: " + humanscore);
-console.log("Computer's score: " + compscore);
-if(humanscore===compscore){
-    alert("YALL TIED :|");
-}
-else if(humanscore>compscore){
-    alert("YOU WIN :D");
-}
-else{
-    alert("YOU LOSE D:");
-}
+buttons.forEach(button => {
+    button.addEventListener("click", () => {
+        if (humanscore === 5 || compscore === 5) return;
+
+        const humanChoice = button.id;
+        const computerChoice = getComputerChoice();
+
+        const roundResult = playRound(humanChoice, computerChoice);
+
+        resultsDiv.textContent = roundResult;
+        scoreDiv.textContent = `You: ${humanscore} | Computer: ${compscore}`;
+
+        if (humanscore === 5) {
+            resultsDiv.textContent = "YOU WIN THE GAME!";
+        } else if (compscore === 5) {
+            resultsDiv.textContent = "YOU LOSE THE GAME!";
+        }
+    });
+});
+
 
 </script>
 
